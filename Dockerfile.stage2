@@ -1,0 +1,2 @@
+FROM xziy/gitian-stage1
+ENTRYPOINT ["/gitian/gitian_build.sh"]

@@ -49,7 +49,7 @@ if [ "${ME}" = "0" ] ; then
   echo  "Seriously. let's make this run without root privs"
    exit 2
 fi
-test -f ${GD_HOST_OSXSDK} || exit 3
+#test -f ${GD_HOST_OSXSDK} || exit 3
 
 NAMESPACE=${LOCAL_USER:-gitianbuild}
 
@@ -59,15 +59,20 @@ chmod +x ./clean.sh
 # make a build dir for Docker 
 # this prevents Docker context from including 20GB of 
 # base-vm files in subsequent runs 
+
+
 if [ "${GD_BUILDER}" != "TRAVIS" ] ; then
+
+
    rm -rf Stage1
    mkdir Stage1 
-   cp ${GD_HOST_OSXSDK} Stage1
+   #cp ${GD_HOST_OSXSDK} Stage1
    cp Dockerfile.stage1 Stage1
    cp gitian_build.sh Stage1
    cp make_gitian_vms.sh Stage1
    cp travis_wait.sh Stage1
    cp config-lxc Stage1
+
    cp ${GD_ENV_FILE} Stage1
    cd Stage1
    sed 's/LOCAL_UID/'${ME}'/g' Dockerfile.stage1 > Dockerfile
@@ -78,7 +83,7 @@ else
 fi
 
 mkdir -pv $(pwd)/${NAMESPACE}/gitian-builder/inputs
-cp ${GD_HOST_OSXSDK} $(pwd)/${NAMESPACE}/gitian-builder/inputs
+# cp ${GD_HOST_OSXSDK} $(pwd)/${NAMESPACE}/gitian-builder/inputs
 mkdir -pv $(pwd)/${NAMESPACE}/gitian-builder/var
 mkdir -pv $(pwd)/${NAMESPACE}/${GD_BUILD_COIN}-src
 sudo chown -R  ${ME}  $(pwd)/${NAMESPACE}

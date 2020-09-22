@@ -19,9 +19,12 @@ RUN  cd /gitian \
       && echo "lxc.aa_allow_incomplete = 1" >> gitian-builder/etc/lxc.config.in \
       && echo "lxc.aa_profile = unconfined" >> gitian-builder/etc/lxc.config.in
 
-RUN  adduser  --disabled-password --gecos "gitian" --uid 1001 gitian
+RUN  adduser  --disabled-password --gecos "gitian" --uid 1000 gitian
 
 
+#COPY gitian_build.sh /gitian
+#COPY make_gitian_vms.sh /gitian
+#COPY config-lxc /gitian/gitian-builder/libexec/config-lxc
 ADD . /
 
 RUN mv /gitian_build.sh /gitian/
@@ -42,4 +45,6 @@ ENV MIRROR_HOST=127.0.0.1
 
 USER gitian
 WORKDIR ["/gitian"]
+
+
 ENTRYPOINT ["/gitian/make_gitian_vms.sh"]

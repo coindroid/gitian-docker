@@ -1,0 +1,8 @@
+deb http://old-releases.ubuntu.com/ubuntu/ wily main restricted
+deb-src http://old-releases.ubuntu.com/ubuntu/ wily main restricted
+deb http://old-releases.ubuntu.com/ubuntu/ wily universe
+deb-src http://old-releases.ubuntu.com/ubuntu/ wily universe
+deb http://old-releases.ubuntu.com/ubuntu/ wily multiverse
+deb-src http://old-releases.ubuntu.com/ubuntu/ wily multiverse
+deb http://old-releases.ubuntu.com/ubuntu/ wily-backports main restricted universe
+deb-src http://old-releases.ubuntu.com/ubuntu/ wily-backports main restricted universe

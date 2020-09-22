@@ -1,6 +1,6 @@
 FROM ubuntu:15.10
 
-
+RUN sed -i -re 's/([a-z]{2}\.)?archive.ubuntu.com|security.ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list
 RUN apt-get update \
      && apt-get install -y python python-pip wget git apache2 ruby qemu-utils  apt-cacher-ng lxc  sudo debootstrap net-tools
 RUN mkdir /gitian \
@@ -12,7 +12,8 @@ RUN mkdir /gitian \
      && python setup.py install \
      && cd .. \
 
-RUN  cd /gitian ; git clone https://github.com/devrandom/gitian-builder.git 
+RUN echo test
+RUN  cd /gitian ; git clone https://github.com/coindroid/gitian-builder.git 
 
 RUN  cd /gitian \
       && echo "lxc.aa_allow_incomplete = 1" >> gitian-builder/etc/lxc.config.in \
