@@ -24,12 +24,19 @@ echo "10.0.3.5 gitian" >> /gitian/hosts.orig
 sudo cp /gitian/hosts.orig /etc/hosts 
 sudo chown -R gitian.gitian /gitian 
 
-git clone ${GD_BUILD_URL}  /gitian/${GD_BUILD_COIN} \
-  && cd /gitian/${GD_BUILD_COIN}  \
+if [ ! -d /gitian/${GD_BUILD_COIN}/depends ] 
+then
+  git clone ${GD_BUILD_URL}  /gitian/${GD_BUILD_COIN} 
+fi
+
+
+cd /gitian/${GD_BUILD_COIN}  \
   && git checkout ${GD_BUILD_COMMIT} \
   && cd /gitian/gitian-builder  \
+  && mkdir -p ../${GD_BUILD_COIN}/depends \
   && make -C ../${GD_BUILD_COIN}/depends download SOURCES_PATH=$(pwd)/cache/common \
-  && test -d BINARIES || mkdir -pv /gitian/gitian-builder/BINARIES
+  && test -d BINARIES || mkdir -pv /gitian/gitian-builder/BINARIES 
+
 
 if [ "${GD_BUILDER}" = "TRAVIS" ]; then  
    echo "TRAVIS BUILD detected"
