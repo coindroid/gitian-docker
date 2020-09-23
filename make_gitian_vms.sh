@@ -1,5 +1,10 @@
 #!/bin/bash
 set -xeo pipefail
+
+sudo cgm create all linas
+sudo cgm chown all linas $(id -u) $(id -g)
+cgm movepid all linas $$
+
 sudo brctl addbr lxcbr0
 sudo ifconfig lxcbr0 10.0.3.1/24 up
 sudo service apt-cacher-ng start
